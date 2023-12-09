@@ -9,3 +9,5 @@ https://www.kdab.com/supercharging-vs-code-with-c-extensions/
 https://www.sololearn.com/en/Discuss/3055955/solved-ms-studio-code-doesnt-take-console-input
 For LLDB Debugger: https://www.youtube.com/watch?v=2GV0K9Y2MKA
 For Markdown files: https://markdownlivepreview.com/
+
+Max 1024 characters
