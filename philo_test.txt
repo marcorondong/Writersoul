@@ -1,0 +1,51 @@
+1. Run the program like this: valgrind --tool=helgrind ./name_of_program
+To check for threads creating, joining,, mutexes, and data race conditions
+
+2. Run: valgrind --tool=drd ./name_of_program
+The same as helgrind but checks other things with threads
+---> REMEBER that these ones are to check the fails, WHEN IT HAppens
+
+3. Add to the makefile compile flags this: -fsanitize=thread
+It's for checking data race.
+---> REMEBER that this ones are to check the fails, WHENEVER IT HAPPENS OR NOT
+---> Remove it after the test
+
+4. Add to the makefile compile flags this:: -fsanitize=address -fsanitize=undefined
+---> Remove them after the test
+
+5. Check for memory leaks with valgrind full flags: valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --show-reachable=yes -s
+
+6. Run the program with and even amount of philosophers, and with an odd (un-event) amount.
+She should have a logic to control the philosophers and when they eat. IT'S NOT THE SAME when you have an even amount or an odd (un-even) amont opf philosophers
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+HAVE IN MIND THIS:
+- Enough time for think-eat-sleep could be calculated like this:
+
+Even amount of philosophers:
+time_to_die = time_to_eat + time_to_sleep + 10
+ex: time_to_di = 200 + 200 + 10
+
+Odd (un-even) amount of philosophers:
+time_to_die = time_to_eat * 2 + time_to_sleep + 10
+ex: time_to_di = 200*2 + 200 + 10
+
+So try to also look for NOT ENOUGH TIME
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+7. This is a philosophers visualizer: https://nafuka11.github.io/philosophers-visualizer/
+Copy the output of her program (1 is eating, 2 is thinkg, etc ..) and paste it in this web so vizualize some bars that represents the philosofers.
+All of them should be sincronized, like a ladder.
+
+8. Check if the writes are consistend and the're not mixed up. each message in its own line
+She should protect (apply a mutex) in the write
+
+9. Check also the 5th argument (it's optional, and it's for "amount of meals that each philosopher MUST eat")
+Use "grep" && "wc -l" command to see if each philosopher has eaten its corresponding amount BEFORE ending the program
+
+10. Open chrome and open like 10 or 20 tabs or more. Check if this interferes with her program.
+She should check if each creation of a thread is succesfull, and each mutex creations as well.
+
+11. Check with ulimit: ulimit -r num_of_threads
+And write the numbers of threas you want to be the max amount. then run her program with more that that amount to see what happens
+https://www.ibm.com/docs/en/aix/7.2?topic=u-ulimit-command
