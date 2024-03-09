@@ -1,0 +1,37 @@
+1. Create a variable FOO='"a*k"'
+2. Create a file named: "alk"
+--> (touch '"alk"')
+3. Run echo $FOO
+-> it should output "alk"
+If not, test in bash to demonstrate ho bash do it
+==============================================================================
+printf "%s\n" """"''''""******"."********""""''
+
+check to see if they print all filenames:
+the ones that have even/odd chars after/ferore the match.
+==============================================================================
+valgrind --leak-check=full --trace-children=yes ./minishell
+echo | < Makefile cat
+
+""
+
+"
+
+This produces SIGPIPE, because echo opens the pipe to write to it;
+but then it has an input redirection from cat; but no one is reading from the pipe
+So the pipe fails. This will get executed by the child, so the child will have leaks
+(but not for execve which are "below main")
+==============================================================================
+- Check if it compiles outside the folder
+
+- Check for this:
+minishell> .
+minishell> "
+minishell> '
+
+minishell> <<EOF cat
+minishell> <<"EOF" cat
+
+
+export var1="fdfdfdf ' fdfdf"
+echo $var1

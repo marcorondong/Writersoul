@@ -1,0 +1,43 @@
+- This command is the best to capture failed test until now:
+mstest m | awk '/🚀|#|❌/; /🏁/ {printIt = 1} printIt'
+
+- Before, it was these other commands (didn't include the tester mode nor the results summary):
+mstest m | awk '/#|❌/'
+- This one works as well:
+mstester m | grep -E '#|❌'
+
+- Before, it was this other command:
+mstest m | awk '/#/{if (printHeader) print ""; printHeader=1; header=$0; next} /❌/ && printHeader {print header; printHeader=0; print; next} /❌/ {print}'
+
+--Note: grep hightligs the matching part. but awk doesn't
+
+
+- This command is for showing the test I'm failing:
+cat /nfs/homes/marondon/42_minishell_tester/cmds/mand/1_variables.sh | head -55
+Ex if the failed line is this one:
+  23:	STD_OUT: ❌  STD_ERR: ✅  EXIT_CODE: ✅  /nfs/homes/marondon/42_minishell_tester/cmds/mand/1_variables.sh:55 
+
+- This command if for telling minishell to execute a series of command inside a txt file:
+bash < tests_to_run.txt
+
+- To see "special chars" (like end of line or command) I add | cat -e to the command:
+bash < tests_to_run.txt | cat -e
+
+- To comment out some test inside the txt file (instead of delete them), I use #
+and then I ececute this command:
+grep -v '^#' commands.txt | ./minishell
+
+- To print the test file content but only the test I'm interested:
+for line in 5 17 21 38; do
+    echo "Test starting at line $line:"
+    sed -n "${line},\$p" /nfs/homes/marondon/42_minishell_tester/cmds/bonus/1_groups.sh | awk 'NF {p=1} !NF {if(p) exit} {if(p) print}'
+    echo "--------------------------------"
+done
+
+
+----> Note the following:
+I have to provide the start line numbers of each test (heads. e.g: head-5)
+in this case are: 5 17 21 38
+I have to provide the path and filename: /nfs/homes/marondon/42_minishell_tester/cmds/bonus/1_groups.sh
+
+
